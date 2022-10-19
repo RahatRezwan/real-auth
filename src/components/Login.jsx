@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaGoogle, FaGithub, FaTwitter } from "react-icons/fa";
+import { AuthContext } from "../contexts/UserContext";
+
 const Login = () => {
+   const { loginAUser } = useContext(AuthContext);
+   /* Handle form submit */
+   const handleSubmit = (event) => {
+      event.preventDefault();
+      const form = event.target;
+
+      /* get form value */
+      const email = form.email.value;
+      const password = form.password.value;
+      console.log(email, password);
+
+      /* login a user */
+      loginAUser(email, password)
+         .then((result) => {
+            const user = result.user;
+            console.log("login: ", user);
+         })
+         .catch((error) => console.log(error));
+   };
    return (
       <div className="hero min-h-screen bg-base-200">
          <div className="hero-content flex-col w-11/12 md:w-3/5 lg:max-w-lg">
             <div className="card w-full shadow-2xl bg-base-100">
-               <form className="card-body">
+               <form onSubmit={handleSubmit} className="card-body">
                   <div className="text-center">
                      <h1 className="text-3xl font-bold">LOGIN</h1>
                   </div>
