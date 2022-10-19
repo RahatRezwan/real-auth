@@ -1,11 +1,15 @@
-import React from "react";
-import { Footer, Header, Home } from "../components";
+import React, { useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { Footer, Header } from "../components";
+import { DarkThemeContext } from "../contexts/ThemeContext";
 
 const Main = () => {
+   const { dark } = useContext(DarkThemeContext);
+   console.log(dark);
    return (
-      <div>
+      <div data-theme={dark ? "night" : "garden"}>
          <Header />
-         <Home />
+         <Outlet />
          <Footer />
       </div>
    );
